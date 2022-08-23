@@ -26,6 +26,34 @@ class BooksServices {
     );
     return books;
   }
+
+  async updateBooks(
+    id: string,
+    title?: string,
+    authors?: string,
+    description?: string,
+    isbn?: string,
+    publishing_company?: string,
+    languages?: string,
+    page_count?: number,
+  ) {
+    const books = await booksRepository.updateBook(
+      id,
+      title,
+      authors,
+      description,
+      isbn,
+      publishing_company,
+      languages,
+      page_count,
+    );
+    return books;
+  }
+
+  async deleteBooks(id: string) {
+    const books = await booksRepository.deleteBook(id);
+    return books;
+  }
 }
 
 module.exports = BooksServices;

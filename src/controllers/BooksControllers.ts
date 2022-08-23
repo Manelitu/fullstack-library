@@ -39,6 +39,45 @@ class BooksController {
       return res.status(500).send({ error: err });
     }
   }
+
+  async updateBooks (req: Request, res: Response) {
+    const { id } = req.params;
+    const {
+      title,
+      authors,
+      description,
+      isbn,
+      publishing_company,
+      languages,
+      page_count,
+    } = req.body;
+
+    try {
+      const books = await booksService.updateBooks(
+        id,
+        title,
+        authors,
+        description,
+        isbn,
+        publishing_company,
+        languages,
+        page_count,
+      );
+      return res.status(200).send(books);
+    } catch (err) {
+      return res.status(500).send({ error: err });
+    }
+  }
+  
+  async deleteBooks (req: Request, res: Response) {
+    const { id } = req.params;
+    try {
+      const books = await booksService.deleteBooks(id);
+      return res.status(200).send(books);
+    } catch (err) {
+      return res.status(500).send({ error: err });
+    }
+  }
 }
 
 module.exports = BooksController;
