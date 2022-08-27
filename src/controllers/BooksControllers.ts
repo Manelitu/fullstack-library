@@ -33,6 +33,7 @@ class BooksController {
       publishing_company,
       languages,
       page_count,
+      posted_by,
     } = req.body;
     try {
       const books = await booksService.createBooks(
@@ -43,6 +44,7 @@ class BooksController {
         publishing_company,
         languages,
         page_count,
+        posted_by,
       );
       return res.status(200).send(books);
     } catch (err) {

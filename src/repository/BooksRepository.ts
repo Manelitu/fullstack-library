@@ -24,6 +24,7 @@ const createBook = async (
   publishing_company: string,
   languages: string,
   page_count: number,
+  posted_by: string,
 ) => {
   const books = await prisma.books.create({
     data: {
@@ -35,6 +36,7 @@ const createBook = async (
       publishing_company,
       languages,
       page_count,
+      posted_by,
     }
   });
   return books;
