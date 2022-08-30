@@ -10,6 +10,7 @@ class BooksController {
       const books = await booksService.listBooks(page);
       return res.status(200).send(books);
     } catch (err) {
+      console.log(err);
       return res.status(500).send({ error: err });
     }
   }
