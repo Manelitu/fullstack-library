@@ -22,6 +22,32 @@ class UsersController {
       return res.status(500).json({ message: err });
     }
   }
+
+  async updateUser(req: Request, res: Response) {
+    const { id } = req.params;
+    let { nome, email, password } = req.body;
+    
+    nome = nome || '';
+    email = email || '';
+    password = password || '';
+
+    try {
+      const user = await usersService.updateUser(id, nome, email, password);
+      return res.status(200).json(user);
+    } catch (err) {
+      return res.status(500).json({ message: err });
+    }
+  }
+
+  async deleteUser(req: Request, res: Response) {
+    const { id } = req.params;
+    try {
+      const user = await usersService.deleteUser(id);
+      return res.status(200).json(user);
+    } catch (err) {
+      return res.status(500).json({ message: err });
+    }
+  }
 }
 
 module.exports = UsersController;

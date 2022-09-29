@@ -33,6 +33,35 @@ const createUser = async (nome: string, email: string, password: string) => {
   return user;
 };
 
-module.exports = { createUser, listUsers, findUserByEmail };
+const updateUser = async (id: string, nome?: string, email?: string, password?: string) => {
+  const incryptedPassword = await hash(password, 8);
+  const oldUser = await prisma.users.findUnique({
+    where: { id },
+  })
+  const user = await prisma.users.update({
+    where: { id },
+    data: {
+      nome: nome ? nome : oldUser.nome,
+      email: email ? email : oldUser.email,
+      password: password ? incryptedPassword : oldUser.password,
+    }
+  });
+  return user;
+};
+
+const deleteUser = async (id: string) => {
+  const user = await prisma.users.delete({
+    where: { id },
+  });
+  return user;
+};
+
+module.exports = {
+  createUser,
+  listUsers,
+  findUserByEmail,
+  updateUser,
+  deleteUser
+};
 
 export {};
